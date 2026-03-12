@@ -1,0 +1,11 @@
+0	1	mikroCPIC1618.exe -MSF -DBG -pP18F452 -DL -O11111114 -fo8 -N"C:\Users\looko\Desktop\trabajos uni\HAE\Apracticas\p1b\p1b.mcppi" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Defs\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\uses\P18\" -SP"C:\Users\looko\Desktop\trabajos uni\HAE\Apracticas\p1b\" -IP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\uses\P18\" "p1b.c" "__Lib_Math.mcl" "__Lib_MathDouble.mcl" "__Lib_System.mcl" "__Lib_Delays.mcl"	 
+hint: 0	1139	Available RAM: 1515 [bytes], Available ROM: 32768 [bytes]	 
+diagnostics: 0	122	Compilation Started	p1b.c
+diagnostics: 30	123	Compiled Successfully	p1b.c
+diagnostics: 0	127	All files Compiled in 47 ms	 
+hint: 0	1144	Used RAM (bytes): 20 (1%)  Free RAM (bytes): 1495 (99%)	Used RAM (bytes): 20 (1%)  Free RAM (bytes): 1495 (99%)
+hint: 0	1144	Used ROM (bytes): 186 (1%)  Free ROM (bytes): 32582 (99%)	Used ROM (bytes): 186 (1%)  Free ROM (bytes): 32582 (99%)
+diagnostics: 0	125	Project Linked Successfully	p1b.mcppi
+diagnostics: 0	128	Linked in 15 ms	 
+diagnostics: 0	129	Project 'p1b.mcppi' completed: 203 ms	 
+diagnostics: 0	103	Finished successfully: 03 feb. 2026, 20:30:21	p1b.mcppi

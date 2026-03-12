@@ -1,0 +1,14 @@
+p5a)I)
+
+-Tiempo máximo en modo 8 bits = 0,032768 segundos
+-Tiempo máximo en modo 16 bits = 8,388608 segundos
+
+-Esto lo obtenemos al usar lógica y despejar la t de la formulita (fórmula de alfa), ya que para ver tiempo máximo tenemos que partir de alfa=0, ya que t overflow es 
+el tiempo restante para que alfa llegue al valor de overflow, y si queremos ver este tiempo en su valor máximo, debemos partir del inicio, es decir, de alfa=0, y tras esto, 
+despejamos y calculamos. Destacar que usamos prescaler 256 porque es el que nos va a dar un t mayor, facilitando las cuentas y el ver dichos tiempos.
+
+p5b)II)
+
+-Hacer lo mismo que en p5a)I), pero Fosc pasar de ser 8 MHz a 20MHz, cambiando los valores de la fórmula aplicada, y en el caso de este apartado, dividir
+por un número mayor, lo que resultaría en tiempos más pequeños, pero no hace falta calcularlo tampoco xd
+
