@@ -1,4 +1,4 @@
-#line 1 "C:/Users/looko/Desktop/trabajos uni/HAE/practicas/p6b/p6b.c"
+#line 1 "C:/Users/looko/Desktop/trabajos uni/HAE/practicas2026HAE/p6b/p6b.c"
 
 sbit LCD_RS at RD2_bit;
 sbit LCD_EN at PORTD.B3;
@@ -75,7 +75,7 @@ void main(){
  ADCON1 = 0xC0;
 
 
- TRISB.B3 = 1;
+ TRISA.B3 = 1;
 
 
  T0CON = 0x85;

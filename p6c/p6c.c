@@ -14,11 +14,14 @@ sbit LCD_D6_Direction at TRISD6_bit;
 sbit LCD_D5_Direction at TRISD5_bit;
 sbit LCD_D4_Direction at TRISD4_bit;
 
-int v = 0; //Voltaje
+int v = 0;
 char txt[16];
-int temp = 0; // Temperatura final a mostrar en el lcd
-float aux = 0.0; // Temperatura final en float (no se puede mostrar por el demo limit del MikroC)
-int unidad = 0;
+int temp = 0;
+float res = 0.0048875;
+
+float tempC = 0.0;   // Siempre guarda el valor Celsius base (recien leido del ADC)
+float aux   = 0.0;   // Temperatura convertida a la unidad actual para mostrar
+int unidad  = 0;     // 0=Celsius, 1=Fahrenheit, 2=Kelvin
 
 int floatToInt(float num) {
     if (num >= 0.0)
@@ -27,100 +30,111 @@ int floatToInt(float num) {
         return (int)(num - 0.5);
 }
 
-void interrupt(){
-
-    if(PIR1.ADIF == 1){
-        //Tomamos valor del termometro y le aplicamos formula del enunciado:
-        v = ADRESL;
-        v = v + (ADRESH << 8);
-
-        // v = 0.130138V / (5V / 1023) = 0.130138 / 0.0048875 ˜ 26.63 ˜ 27 (en counts ADC) => Esto en el terrífico caso de que un voltaje de 0,130138 da -37 grados xd:
-        aux = 100*(v*0.0048875) - 50;
-
-        temp = floatToInt(aux);
-
-        //Limpiamos el LCD y pasamos el valor recien calculado para que lo muestre:
-        Lcd_Cmd(_Lcd_Clear);
-        IntToStr(temp, txt);
-        Lcd_out(1,1, txt);
-
-        //Apagamos el AD:
-        ADCON0.ADON = 0;
-        ADCON0.GO = 0;
-        PIR1.ADIF = 0;
-
-        //Iniciamos el timer de 1,2 segundos:
-        T0CON.TMR0ON = 1;
-        TMR0H = (28036 >> 8);
-        TMR0L = 28036;
+void mostrarTemp() {
+    Lcd_Cmd(_Lcd_Clear);
+    IntToStr(temp, txt);
+    if (unidad == 0) {
+        Lcd_out(1, 1, txt);
+        Lcd_out(1, 7, "C");
+    } else if (unidad == 1) {
+        Lcd_out(1, 1, txt);
+        Lcd_out(1, 7, "F");
+    } else {
+        Lcd_out(1, 1, txt);
+        Lcd_out(1, 7, "K");
     }
-
-    if(INTCON.TMR0IF == 1){
-
-        //Una vez pasan los 1,2 segundos, salta overflow del timer y pasamos a la interrupcion, donde accedemos a este apartado donde seteamos de vuelta el AD:
-        ADCON0.ADON = 1;
-        ADCON0.GO = 1;
-        T0CON.TMR0ON = 0;
-        INTCON.TMR0IF = 0;
-    }
-
-    if (INTCON.INT0IF == 1 && PORTB.B0 == 1) {
-
-        switch(unidad) {
-            case 0 :
-                aux = (aux - 32) / 1.8;
-                unidad++;
-                break;
-            case 1 :
-                aux = aux + 273,15;
-                unidad++;
-                break;
-            default :
-                aux = 1,8*(aux-273,15) + 32;
-                unidad = 0;
-                break;
-
-        }
-        INTCON.INT0IF = 0;
-    }
-
 }
 
-void main(){
+void interrupt() {
+
+    if (PIR1.ADIF == 1) {
+        // Leer ADC y calcular Celsius base
+        v = ADRESL;
+        v = v + (ADRESH << 8);
+        tempC = 100.0 * (v * res) - 50.0;
+
+        // Convertir a la unidad actualmente seleccionada
+        if (unidad == 0) {
+            aux = tempC;
+        } else if (unidad == 1) {
+            aux = 1.8 * tempC + 32.0;
+        } else {
+            aux = tempC + 273.15;
+        }
+
+        temp = floatToInt(aux);
+        mostrarTemp();
+
+        // Apagar AD
+        ADCON0.ADON = 0;
+        ADCON0.GO   = 0;
+        PIR1.ADIF   = 0;
+
+        // Preload inicamos el timer de 1.2 segundos
+        T0CON.TMR0ON = 1;
+        TMR0H = (28036 >> 8);
+        TMR0L = 28036 & 0xFF;
+    }
+
+    if (INTCON.TMR0IF == 1) {
+        // Reiniciar ADC tras 1.2 segundos
+        T0CON.TMR0ON = 0;
+        INTCON.TMR0IF = 0;
+        ADCON0.ADON = 1;
+        ADCON0.GO   = 1;
+    }
+
+    if (INTCON.INT0IF == 1) {
+        // Avanzar unidad y recalcular desde tempC base
+        unidad = (unidad + 1) % 3;
+
+        if (unidad == 0) {
+            aux = tempC;
+        } else if (unidad == 1) {
+            aux = 1.8 * tempC + 32.0;
+        } else {
+            aux = tempC + 273.15;
+        }
+
+        temp = floatToInt(aux);
+        mostrarTemp();
+
+        INTCON.INT0IF = 0;
+    }
+}
+
+void main() {
     Lcd_init();
 
-    //Setear el ADCON0 y ADCON1:
+    // ADC: canal AN3, Fosc/64, justificacion derecha
     ADCON0 = 0x59;
     ADCON1 = 0xC0;
 
-    //Entrada del termometro:
+    // Entradas
     TRISA.B3 = 1;
-
-    //Entrada del boton:
     TRISB.B0 = 1;
 
-    //Habilitar interrupción del timer:
+    // Timer0: prescaler 1:64, modo 16 bits, reloj interno
     T0CON = 0x85;
     INTCON.TMR0IF = 0;
     INTCON.TMR0IE = 1;
 
-    //Habilitar interrupcion del boton:
-    INTCON.INT0IE = 1;
-    INTCON.INT0IF = 0;
+    // INT0 (boton RB0): flanco de subida
     INTCON2.INTEDG0 = 1;
+    INTCON.INT0IF   = 0;
+    INTCON.INT0IE   = 1;
 
-    //Habilitar interrupció n del AD:
-    PIR1.ADIF = 0;
-    PIE1.ADIE = 1;
+    // Interrupcion ADC
+    PIR1.ADIF  = 0;
+    PIE1.ADIE  = 1;
     INTCON.PEIE = 1;
 
-    //Por ultimo, muy importante, habilitar interrupciones en general:
+    // Habilitar interrupciones globales
     INTCON.GIE = 1;
 
-    //Encendemos el GO para que el AD tome un valor del termometro y empieza a fukar el circuito:
+    // Primera conversion
     ADCON0.GO = 1;
 
-    while(1) {
-
+    while (1) {
     }
 }

@@ -212,8 +212,8 @@ _main:
 ;p6b.c,74 :: 		ADCON1 = 0xC0;
 	MOVLW       192
 	MOVWF       ADCON1+0 
-;p6b.c,77 :: 		TRISB.B3 = 1;
-	BSF         TRISB+0, 3 
+;p6b.c,77 :: 		TRISA.B3 = 1;
+	BSF         TRISA+0, 3 
 ;p6b.c,80 :: 		T0CON = 0x85;
 	MOVLW       133
 	MOVWF       T0CON+0 

@@ -1,4 +1,4 @@
-#line 1 "C:/Users/looko/Desktop/trabajos uni/HAE/practicas/p6a/p6a.c"
+#line 1 "C:/Users/looko/Desktop/trabajos uni/HAE/practicas2026HAE/p6a/p6a.c"
 
 sbit LCD_RS at RD2_bit;
 sbit LCD_EN at PORTD.B3;
