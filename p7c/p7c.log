@@ -1,0 +1,11 @@
+0	1	mikroCPIC1618.exe -MSF -DBG -pP18F452 -DL -O11111114 -fo8 -N"C:\Users\looko\Desktop\trabajos uni\HAE\practicas2026HAE\p7c\p7c.mcppi" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Defs\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\uses\P18\" -SP"C:\Users\looko\Desktop\trabajos uni\HAE\practicas2026HAE\p7c\" -IP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\uses\P18\" -IP"C:\Users\looko\Desktop\trabajos uni\HAE\practicas2026HAE\p7c\" "p7c.c" "__Lib_Math.mcl" "__Lib_MathDouble.mcl" "__Lib_System.mcl" "__Lib_Delays.mcl"	 
+hint: 0	1139	Available RAM: 1515 [bytes], Available ROM: 32768 [bytes]	 
+diagnostics: 0	122	Compilation Started	p7c.c
+diagnostics: 3	123	Compiled Successfully	p7c.c
+diagnostics: 0	127	All files Compiled in 94 ms	 
+hint: 0	1144	Used RAM (bytes): 0 (1%)  Free RAM (bytes): 1515 (99%)	Used RAM (bytes): 0 (1%)  Free RAM (bytes): 1515 (99%)
+hint: 0	1144	Used ROM (bytes): 30 (1%)  Free ROM (bytes): 32738 (99%)	Used ROM (bytes): 30 (1%)  Free ROM (bytes): 32738 (99%)
+diagnostics: 0	125	Project Linked Successfully	p7c.mcppi
+diagnostics: 0	128	Linked in 15 ms	 
+diagnostics: 0	129	Project 'p7c.mcppi' completed: 125 ms	 
+diagnostics: 0	103	Finished successfully: 25 mar. 2026, 21:13:57	p7c.mcppi
