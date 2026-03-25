@@ -1,0 +1,17 @@
+T0CON para temporizador de 1 segundo
+
+alfa = 2^n - ((Toverflow - Fosc)/(4 * prescaler)) = 3036
+	n = 16
+	Toverflow = 1
+	Fosc = 8*10^6
+	prescaler = 32
+	
+alfa = 3036
+
+T0CON = 10000100
+
+// Codigo de configuracion
+
+T0CON = 0x84;
+TMR0H = (3036 >> 8);
+TMR0L = 3036;
