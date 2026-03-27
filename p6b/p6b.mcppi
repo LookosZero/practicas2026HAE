@@ -15,6 +15,14 @@ Value=0
 Value=0
 [EEPROM_DEFINITION]
 Value=
+[INTERRUPT_DEFS]
+VECTOR_MODE=0
+IVT_BASE=00000008
+[PROGRAMMER_TYPE]
+Value=mikroE mikroProg
+[CODEGRIP_OPTIONS]
+CODEGRIP_SPEED=4
+CODEGRIP_VERIFY_AFTER=1
 [FILES]
 File0=p6b.c
 Count=1
@@ -46,18 +54,11 @@ File1=Lcd_Constants
 File2=Conversions
 File3=C_String
 Count=4
-[INTERRUPT_DEFS]
-VECTOR_MODE=0
-IVT_BASE=00000008
 [EXPANDED_NODES]
 0=p6b.mcppi
 Count=1
 [LIB_EXPANDED_NODES]
 0=mikroE Libraries
 1=System Libraries
-Count=2
-[PROGRAMMER_TYPE]
-Value=mikroE mikroProg
-[CODEGRIP_OPTIONS]
-CODEGRIP_SPEED=4
-CODEGRIP_VERIFY_AFTER=1
+45=Conversions
+Count=3

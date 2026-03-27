@@ -21,7 +21,7 @@ interrupt
 				SETFOV32
 				RES032
 			SETFOV32
-	floatToInt
+	FloatToInt
 		Compare_Double
 		Add_32x32_FP
 			NRM4032
