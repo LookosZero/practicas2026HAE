@@ -15,17 +15,18 @@ sbit LCD_D6_Direction at TRISD6_bit;
 sbit LCD_D5_Direction at TRISD5_bit;
 sbit LCD_D4_Direction at TRISD4_bit;
 
+const float LAMBDA = 0.0048875;
+
 int v = 0;
 char txt[16];
-int temp = 0;
 float aux = 0.0;
-float res = 0.0048875;
+int temp = 0;
 
-int floatToInt(float num) {
- if (num >= 0.0)
- return (int)(num + 0.5);
+void FloatToInt(float aux, int *temp) {
+ if (aux >= 0)
+ *temp = (int)(aux + 0.5);
  else
- return (int)(num - 0.5);
+ *temp = (int)(aux - 0.5);
 }
 
 void interrupt(){
@@ -36,9 +37,9 @@ void interrupt(){
  v = v + (ADRESH << 8);
 
 
- aux = 100*(v*res) - 50;
+ aux = 100*(v*LAMBDA) - 50;
 
- temp = floatToInt(aux);
+ FloatToInt(aux, &temp);
 
 
  Lcd_Cmd(_Lcd_Clear);
