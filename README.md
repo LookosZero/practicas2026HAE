@@ -1,6 +1,6 @@
 # Prácticas de HAE (2026)
 
-Repositorio donde iré subiendo las prácticas de la asignatura HAE a lo largo del año 2026. Se actualizará progresivamente conforme vaya completando nuevos ejercicios.
+Repositorio donde iré subiendo mis prácticas de la asignatura HAE a lo largo del año 2026. Se actualizará progresivamente conforme vaya completando nuevos ejercicios.
 
 ## Notas
 
