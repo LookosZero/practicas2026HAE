@@ -5,7 +5,7 @@ void main() {
     
     int i = 0;
     
-    //Configurar pines como digitales
+    // Configurar pines como digitales
     ADCON1 = 0x07;
     
     // Configurar pines C como salidas
