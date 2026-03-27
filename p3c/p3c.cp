@@ -1,4 +1,4 @@
-#line 1 "C:/Users/looko/Desktop/trabajos uni/HAE/practicas/p3c/p3c.c"
+#line 1 "C:/Users/looko/Desktop/trabajos uni/HAE/practicas2026HAE/p3c/p3c.c"
 unsigned int unidad = 0;
 unsigned int decena = 0;
 

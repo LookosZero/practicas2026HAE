@@ -17,12 +17,12 @@ L_interrupt0:
 	MOVWF       _bucleLuz+0 
 ;p4d.c,12 :: 		}
 L_interrupt1:
-;p4d.c,14 :: 		x = PORTB; // hay que leer el puerto B antes de borrar el flag
+;p4d.c,14 :: 		x = PORTB; // Leer el puerto B antes de borrar el flag
 	MOVF        PORTB+0, 0 
 	MOVWF       _x+0 
 	MOVLW       0
 	MOVWF       _x+1 
-;p4d.c,15 :: 		INTCON.RBIF = 0; // se borra el flag
+;p4d.c,15 :: 		INTCON.RBIF = 0; // Se borra el flag
 	BCF         INTCON+0, 0 
 ;p4d.c,16 :: 		}
 L_end_interrupt:
@@ -38,18 +38,18 @@ _main:
 	MOVWF       ADCON1+0 
 ;p4d.c,21 :: 		TRISA.B0 = 0;
 	BCF         TRISA+0, 0 
-;p4d.c,23 :: 		TRISB.B5 = 1; // x = 4, 5, 6, 7
+;p4d.c,23 :: 		TRISB.B5 = 1;
 	BSF         TRISB+0, 5 
 ;p4d.c,24 :: 		x = PORTB;
 	MOVF        PORTB+0, 0 
 	MOVWF       _x+0 
 	MOVLW       0
 	MOVWF       _x+1 
-;p4d.c,25 :: 		INTCON.RBIF = 0; // se pone el flag a 0
+;p4d.c,25 :: 		INTCON.RBIF = 0; // Se pone el flag a 0
 	BCF         INTCON+0, 0 
-;p4d.c,26 :: 		INTCON.RBIE = 1; // se habilita la interrupción por cambio de nivel
+;p4d.c,26 :: 		INTCON.RBIE = 1; // Se habilita la interrupción por cambio de nivel
 	BSF         INTCON+0, 3 
-;p4d.c,27 :: 		INTCON.GIE = 1; // se habilitan las interrupciones en general
+;p4d.c,27 :: 		INTCON.GIE = 1; // Se habilitan las interrupciones en general
 	BSF         INTCON+0, 7 
 ;p4d.c,29 :: 		while(1){
 L_main2:

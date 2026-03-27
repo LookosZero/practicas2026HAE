@@ -7,7 +7,7 @@ void interrupt(){
     // Para que solo se ejecute un timer a la vez
     if(lock == false){
 
-        // Cuando haya una interrupcion y el boton se pulse se encenderá el led
+        // Cuando haya una interrupcion y el boton se pulse se encendera el led
         if(INTCON.INT0IF == 1 && INTCON.INT0IE == 1 && PORTB.B0 == 1){
             PORTC.B0 = 1;
 
@@ -23,7 +23,7 @@ void interrupt(){
 
         }
 
-        // Cuando haya una interrupcion y el boton se pulse se encenderá el led
+        // Cuando haya una interrupcion y el boton se pulse se encendera el led
         if(INTCON3.INT1IF == 1 && INTCON3.INT1IE == 1 && PORTB.B1 == 1){
             PORTC.B7 = 1;
 
@@ -40,7 +40,7 @@ void interrupt(){
         }
     }
 
-    // Cuando el timer desborda significa que pasó el tiempo deseado
+    // Cuando el timer desborda significa que paso el tiempo deseado
     if (INTCON.TMR0IF == 1) {
         // Se desbloquea y se apagan los leds
         lock = false;
@@ -81,7 +81,8 @@ void main(){
     INTCON.TMR0IF = 0;
     INTCON.TMR0IE = 1;
 
-    INTCON.GIE = 1; // se habilitan las interrupciones en general
+    // Habilitar interrupciones en general
+    INTCON.GIE = 1;
 
     PORTC.B0 = 0;
     PORTC.B7 = 0;

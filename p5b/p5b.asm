@@ -135,23 +135,23 @@ _main:
 ;p5b.c,41 :: 		T0CON = 0xB4;
 	MOVLW       180
 	MOVWF       T0CON+0 
-;p5b.c,42 :: 		INTCON.TMR0IF = 0; // se pone el flag a 0
+;p5b.c,42 :: 		INTCON.TMR0IF = 0; // Se pone el flag a 0
 	BCF         INTCON+0, 2 
-;p5b.c,43 :: 		INTCON.TMR0IE = 1; // se habilita la interrupción del Timer 0
+;p5b.c,43 :: 		INTCON.TMR0IE = 1; // Se habilita la interrupción del Timer 0
 	BSF         INTCON+0, 5 
-;p5b.c,44 :: 		INTCON.GIE = 1; // se habilitan las interrupciones en general
+;p5b.c,44 :: 		INTCON.GIE = 1; // Se habilitan las interrupciones en general
 	BSF         INTCON+0, 7 
-;p5b.c,47 :: 		TMR0H = (30536 >> 8);
+;p5b.c,46 :: 		TMR0H = (30536 >> 8);
 	MOVLW       119
 	MOVWF       TMR0H+0 
-;p5b.c,48 :: 		TMR0L = 30536; //se carga el valor inicial (alfa) del ‘contador’
+;p5b.c,47 :: 		TMR0L = 30536; //se carga el valor inicial (alfa) del contador
 	MOVLW       72
 	MOVWF       TMR0L+0 
-;p5b.c,52 :: 		while(1) {
+;p5b.c,49 :: 		while(1) {
 L_main13:
-;p5b.c,54 :: 		}
+;p5b.c,51 :: 		}
 	GOTO        L_main13
-;p5b.c,55 :: 		}
+;p5b.c,52 :: 		}
 L_end_main:
 	GOTO        $+0
 ; end of _main

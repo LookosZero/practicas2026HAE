@@ -129,10 +129,10 @@ L_tecla10:
 	ADDWFC      R1, 1 
 	MOVF        tecla_columna_L0+0, 0 
 	ADDWF       R0, 0 
-	MOVWF       FSR0L+0 
+	MOVWF       FSR0 
 	MOVLW       0
 	ADDWFC      R1, 0 
-	MOVWF       FSR0L+1 
+	MOVWF       FSR0H 
 ;tecla12int.h,57 :: 		return aux2;
 	MOVF        POSTINC0+0, 0 
 	MOVWF       R0 
@@ -143,7 +143,7 @@ L_end_tecla:
 
 _interrupt:
 
-;p4a.c,24 :: 		void interrupt(){ // se ha pulsado una tecla
+;p4a.c,24 :: 		void interrupt(){ // Se ha pulsado una tecla
 ;p4a.c,28 :: 		key = tecla(); // En la variable key se guarda un número correspondiente al valor ASCII de la tecla pulsada
 	CALL        _tecla+0, 0
 ;p4a.c,31 :: 		Lcd_Chr(fila, columna, key);
@@ -200,12 +200,12 @@ L_interrupt11:
 ;p4a.c,41 :: 		columna++;
 	INFSNZ      _columna+0, 1 
 	INCF        _columna+1, 1 
-;p4a.c,43 :: 		x = PORTB; // para poder borrar el bit RBIF (define x global)
+;p4a.c,43 :: 		x = PORTB; // Para poder borrar el bit RBIF (define x global)
 	MOVF        PORTB+0, 0 
 	MOVWF       _x+0 
 	MOVLW       0
 	MOVWF       _x+1 
-;p4a.c,44 :: 		INTCON.RBIF=0; // se borra el bit RBIF después de llamar a la función tecla()
+;p4a.c,44 :: 		INTCON.RBIF=0; // Se borra el bit RBIF después de llamar a la funcion tecla()
 	BCF         INTCON+0, 0 
 ;p4a.c,45 :: 		}
 L_end_interrupt:
@@ -221,14 +221,14 @@ _main:
 ;p4a.c,51 :: 		ADCON1 = 0x07;
 	MOVLW       7
 	MOVWF       ADCON1+0 
-;p4a.c,54 :: 		TRISB = 0xF0; // el nibble alto son entradas y el nibble bajo son salidas
+;p4a.c,54 :: 		TRISB = 0xF0; // El nibble alto son entradas y el nibble bajo son salidas
 	MOVLW       240
 	MOVWF       TRISB+0 
 ;p4a.c,55 :: 		PORTB = 0;
 	CLRF        PORTB+0 
-;p4a.c,57 :: 		INTCON2.RBPU = 0; // se habilitan las resistencias de pullup del puerto B
+;p4a.c,57 :: 		INTCON2.RBPU = 0; // Se habilitan las resistencias de pullup del puerto B
 	BCF         INTCON2+0, 7 
-;p4a.c,58 :: 		x = PORTB; // para poder borrar el RBIF
+;p4a.c,58 :: 		x = PORTB; // Para poder borrar el RBIF
 	MOVF        PORTB+0, 0 
 	MOVWF       _x+0 
 	MOVLW       0
@@ -237,7 +237,7 @@ _main:
 	BCF         INTCON+0, 0 
 ;p4a.c,60 :: 		INTCON.RBIE = 1;
 	BSF         INTCON+0, 3 
-;p4a.c,62 :: 		INTCON.GIE = 1; // se habilitan las interrupciones en general
+;p4a.c,62 :: 		INTCON.GIE = 1; // Se habilitan las interrupciones en general
 	BSF         INTCON+0, 7 
 ;p4a.c,64 :: 		while(1){
 L_main14:

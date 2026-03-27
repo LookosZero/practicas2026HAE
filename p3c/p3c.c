@@ -3,7 +3,7 @@ unsigned int decena = 0;
 
 void interrupt(){
 
-    // INT0 en RB0 - RESTAR
+    // INT0 en RB0: RESTAR
     if(INTCON.INT0IF == 1){
         if(unidad <= 0){
             unidad = 9;
@@ -18,7 +18,7 @@ void interrupt(){
         INTCON.INT0IF = 0; // Limpiar flag INT0
     }
 
-    // INT1 en RB1 - SUMAR
+    // INT1 en RB1: SUMAR
     if(INTCON3.INT1IF == 1){
         if(unidad >= 9){
             unidad = 0;

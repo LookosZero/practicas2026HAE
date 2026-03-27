@@ -1,4 +1,4 @@
-//VAriable cualquierea llamada Q:
+// Variable cualquierea llamada Q:
 int Q = 0;
 int m = 0;
 
@@ -37,17 +37,14 @@ void main() {
     TRISA.B3 = 0;
     PORTA.B3 = 0;
 
-    //En T0CON, guardamos un numero en hexa que describe las caracteristicas del timer (8 o 16 bits, prescaler...)
+    // En T0CON, guardamos un numero en hexa que describe las caracteristicas del timer
     T0CON = 0xB4;
-    INTCON.TMR0IF = 0; // se pone el flag a 0
-    INTCON.TMR0IE = 1; // se habilita la interrupción del Timer 0
-    INTCON.GIE = 1; // se habilitan las interrupciones en general
-
+    INTCON.TMR0IF = 0; // Se pone el flag a 0
+    INTCON.TMR0IE = 1; // Se habilita la interrupción del Timer 0
+    INTCON.GIE = 1; // Se habilitan las interrupciones en general
 
     TMR0H = (30536 >> 8);
-    TMR0L = 30536; //se carga el valor inicial (alfa) del ‘contador’
-    //Hacemos esto para correr 8 posiciones, y asi obtener las 8 ultimas que nos interesan (al haber 16)
-    // hay que poner a contar el Timer0
+    TMR0L = 30536; //se carga el valor inicial (alfa) del contador
 
     while(1) {
 

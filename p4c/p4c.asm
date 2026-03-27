@@ -20,7 +20,7 @@ L_interrupt0:
 	CLRF        _candado+0 
 ;p4c.c,33 :: 		}
 L_interrupt1:
-;p4c.c,35 :: 		x = PORTB; // hay que leer el puerto B antes de borrar el flag
+;p4c.c,35 :: 		x = PORTB; // Hay que leer el puerto B antes de borrar el flag
 	MOVF        PORTB+0, 0 
 	MOVWF       _x+0 
 	MOVLW       0
@@ -50,11 +50,11 @@ _main:
 	MOVWF       _x+0 
 	MOVLW       0
 	MOVWF       _x+1 
-;p4c.c,48 :: 		INTCON.RBIF = 0; // se pone el flag a 0
+;p4c.c,48 :: 		INTCON.RBIF = 0; // Se pone el flag a 0
 	BCF         INTCON+0, 0 
-;p4c.c,49 :: 		INTCON.RBIE = 1; // se habilita la interrupción por cambio de nivel
+;p4c.c,49 :: 		INTCON.RBIE = 1; // Se habilita la interrupción por cambio de nivel
 	BSF         INTCON+0, 3 
-;p4c.c,50 :: 		INTCON.GIE = 1; // se habilitan las interrupciones en general
+;p4c.c,50 :: 		INTCON.GIE = 1; // Se habilitan las interrupciones en general
 	BSF         INTCON+0, 7 
 ;p4c.c,52 :: 		Lcd_Out(1, 1, "Turno:   0");
 	MOVLW       1

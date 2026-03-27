@@ -1,10 +1,10 @@
-#line 1 "C:/Users/looko/Desktop/trabajos uni/HAE/practicas/p4d/p4d.c"
+#line 1 "C:/Users/looko/Desktop/trabajos uni/HAE/practicas2026HAE/p4d/p4d.c"
 #line 1 "c:/users/public/documents/mikroelektronika/mikroc pro for pic/include/stdbool.h"
 
 
 
  typedef char _Bool;
-#line 3 "C:/Users/looko/Desktop/trabajos uni/HAE/practicas/p4d/p4d.c"
+#line 3 "C:/Users/looko/Desktop/trabajos uni/HAE/practicas2026HAE/p4d/p4d.c"
 int x;
  _Bool  bucleLuz =  0 ;
 
