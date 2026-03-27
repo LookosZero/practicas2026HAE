@@ -1,6 +1,6 @@
-#line 1 "C:/Users/looko/Desktop/trabajos uni/HAE/practicas/p4a/p4a.c"
-#line 1 "c:/users/looko/desktop/trabajos uni/hae/practicas/p4a/tecla12int.h"
-#line 24 "c:/users/looko/desktop/trabajos uni/hae/practicas/p4a/tecla12int.h"
+#line 1 "C:/Users/looko/Desktop/trabajos uni/HAE/practicas2026HAE/p4a/p4a.c"
+#line 1 "c:/users/looko/desktop/trabajos uni/hae/practicas2026hae/p4a/tecla12int.h"
+#line 24 "c:/users/looko/desktop/trabajos uni/hae/practicas2026hae/p4a/tecla12int.h"
 unsigned char tecla()
 {
 
@@ -36,7 +36,7 @@ delay_ms( 10 );
  aux2=teclado[fila][columna];
  return aux2;
 }
-#line 4 "C:/Users/looko/Desktop/trabajos uni/HAE/practicas/p4a/p4a.c"
+#line 4 "C:/Users/looko/Desktop/trabajos uni/HAE/practicas2026HAE/p4a/p4a.c"
 sbit LCD_RS at RD2_bit;
 sbit LCD_EN at PORTD.B3;
 sbit LCD_D7 at RD7_bit;

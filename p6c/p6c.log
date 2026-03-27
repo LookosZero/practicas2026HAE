@@ -6,6 +6,6 @@ diagnostics: 0	127	All files Compiled in 63 ms
 hint: 0	1144	Used RAM (bytes): 62 (4%)  Free RAM (bytes): 1453 (96%)	Used RAM (bytes): 62 (4%)  Free RAM (bytes): 1453 (96%)
 hint: 0	1144	Used ROM (bytes): 4746 (14%)  Free ROM (bytes): 28022 (86%)	Used ROM (bytes): 4746 (14%)  Free ROM (bytes): 28022 (86%)
 diagnostics: 0	125	Project Linked Successfully	p6c.mcppi
-diagnostics: 0	128	Linked in 15 ms	 
-diagnostics: 0	129	Project 'p6c.mcppi' completed: 94 ms	 
-diagnostics: 0	103	Finished successfully: 25 mar. 2026, 19:45:19	p6c.mcppi
+diagnostics: 0	128	Linked in 31 ms	 
+diagnostics: 0	129	Project 'p6c.mcppi' completed: 109 ms	 
+diagnostics: 0	103	Finished successfully: 27 mar. 2026, 18:00:03	p6c.mcppi

@@ -1,4 +1,4 @@
-#line 1 "C:/Users/looko/Desktop/trabajos uni/HAE/practicas/p5b/p5b.c"
+#line 1 "C:/Users/looko/Desktop/trabajos uni/HAE/practicas2026HAE/p5b/p5b.c"
 
 int Q = 0;
 int m = 0;
@@ -44,11 +44,8 @@ void main() {
  INTCON.TMR0IE = 1;
  INTCON.GIE = 1;
 
-
  TMR0H = (30536 >> 8);
  TMR0L = 30536;
-
-
 
  while(1) {
 

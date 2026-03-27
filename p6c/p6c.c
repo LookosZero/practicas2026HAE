@@ -19,9 +19,9 @@ char txt[16];
 int temp = 0;
 float res = 0.0048875;
 
-float tempC = 0.0;   // Siempre guarda el valor Celsius base (recien leido del ADC)
-float aux   = 0.0;   // Temperatura convertida a la unidad actual para mostrar
-int unidad  = 0;     // 0=Celsius, 1=Fahrenheit, 2=Kelvin
+float tempC = 0.0; // Siempre guarda el valor Celsius base (recien leido del ADC)
+float aux   = 0.0; // Temperatura convertida a la unidad actual para mostrar
+int unidad  = 0;   // 0=Celsius, 1=Fahrenheit, 2=Kelvin
 
 int floatToInt(float num) {
     if (num >= 0.0)
@@ -106,25 +106,25 @@ void interrupt() {
 void main() {
     Lcd_init();
 
-    // ADC: canal AN3, Fosc/64, justificacion derecha
+    // Configurar AD
     ADCON0 = 0x59;
     ADCON1 = 0xC0;
 
-    // Entradas
+    // Configurar puertos entrada
     TRISA.B3 = 1;
     TRISB.B0 = 1;
 
-    // Timer0: prescaler 1:64, modo 16 bits, reloj interno
+    // Configurar timer
     T0CON = 0x85;
     INTCON.TMR0IF = 0;
     INTCON.TMR0IE = 1;
 
-    // INT0 (boton RB0): flanco de subida
+    // INT0 (boton RB0)
     INTCON2.INTEDG0 = 1;
     INTCON.INT0IF   = 0;
     INTCON.INT0IE   = 1;
 
-    // Interrupcion ADC
+    // Interrupcion AD
     PIR1.ADIF  = 0;
     PIE1.ADIE  = 1;
     INTCON.PEIE = 1;

@@ -1,10 +1,10 @@
-#line 1 "C:/Users/looko/Desktop/trabajos uni/HAE/practicas/p4c/p4c.c"
+#line 1 "C:/Users/looko/Desktop/trabajos uni/HAE/practicas2026HAE/p4c/p4c.c"
 #line 1 "c:/users/public/documents/mikroelektronika/mikroc pro for pic/include/stdbool.h"
 
 
 
  typedef char _Bool;
-#line 4 "C:/Users/looko/Desktop/trabajos uni/HAE/practicas/p4c/p4c.c"
+#line 4 "C:/Users/looko/Desktop/trabajos uni/HAE/practicas2026HAE/p4c/p4c.c"
 sbit LCD_RS at RD2_bit;
 sbit LCD_EN at PORTD.B3;
 sbit LCD_D7 at RD7_bit;

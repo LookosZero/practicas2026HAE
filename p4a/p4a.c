@@ -21,13 +21,13 @@ int x;
 int fila = 1;
 int columna = 1;
 
-void interrupt(){ // se ha pulsado una tecla
+void interrupt(){ // Se ha pulsado una tecla
 
-    // Variable que contiene la tecla pulsada:
+    // Variable que contiene la tecla pulsada
     char key;
     key = tecla(); // En la variable key se guarda un número correspondiente al valor ASCII de la tecla pulsada
 
-    //Lógica del LCD:
+    // Logica del LCD
     Lcd_Chr(fila, columna, key);
     if(columna >= 16){
         if(fila == 1){
@@ -40,8 +40,8 @@ void interrupt(){ // se ha pulsado una tecla
     }
     columna++;
 
-    x = PORTB; // para poder borrar el bit RBIF (define x global)
-    INTCON.RBIF=0; // se borra el bit RBIF después de llamar a la función tecla()
+    x = PORTB; // Para poder borrar el bit RBIF (define x global)
+    INTCON.RBIF=0; // Se borra el bit RBIF después de llamar a la funcion tecla()
 }
 
 
@@ -50,16 +50,16 @@ void main(){
 
     ADCON1 = 0x07;
 
-    // Habilitamos las interrupciones RB4-7:
-    TRISB = 0xF0; // el nibble alto son entradas y el nibble bajo son salidas
+    // Habilitamos las interrupciones RB4-7
+    TRISB = 0xF0; // El nibble alto son entradas y el nibble bajo son salidas
     PORTB = 0;
 
-    INTCON2.RBPU = 0; // se habilitan las resistencias de pullup del puerto B
-    x = PORTB; // para poder borrar el RBIF
+    INTCON2.RBPU = 0; // Se habilitan las resistencias de pullup del puerto B
+    x = PORTB; // Para poder borrar el RBIF
     INTCON.RBIF = 0;
     INTCON.RBIE = 1;
 
-    INTCON.GIE = 1; // se habilitan las interrupciones en general
+    INTCON.GIE = 1; // Se habilitan las interrupciones en general
 
     while(1){
 

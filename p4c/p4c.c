@@ -17,14 +17,14 @@ sbit LCD_D5_Direction at TRISD5_bit;
 sbit LCD_D4_Direction at TRISD4_bit;
 
 int x;
-// La funcion de candado es cancelar el flanco de subida cuando dejamos de presionar el botón, que en esta interrupción RB5 cuenta también:
-// CUIDADO, es un bool que de base no funciona en mikroC, hay que poner el include de arriba:
+
+// La funcion de candado es cancelar el flanco de subida cuando dejamos de presionar el boton, que en la interrupción RB5 cuenta tambien
 bool candado = false;
 bool escribir = false;
 
 void interrupt(){
 
-// El interrupt solo se encarga de que el boton funcione con flancos de subida y de mandar ejecutar la orden de escribir, como una pseudofunción:
+// El interrupt solo se encarga de que el boton funcione con flancos de subida y de mandar ejecutar la orden de escribir
     if(candado == false) {
         escribir = true;
         candado = true;
@@ -32,7 +32,7 @@ void interrupt(){
         candado = false;
     }
 
-    x = PORTB; // hay que leer el puerto B antes de borrar el flag
+    x = PORTB; // Hay que leer el puerto B antes de borrar el flag
     INTCON.RBIF = 0; // se borra el flag
 }
 
@@ -45,13 +45,13 @@ void main(){
 
     TRISB.B5 = 1; // x = 4, 5, 6, 7
     x = PORTB;
-    INTCON.RBIF = 0; // se pone el flag a 0
-    INTCON.RBIE = 1; // se habilita la interrupción por cambio de nivel
-    INTCON.GIE = 1; // se habilitan las interrupciones en general
+    INTCON.RBIF = 0; // Se pone el flag a 0
+    INTCON.RBIE = 1; // Se habilita la interrupción por cambio de nivel
+    INTCON.GIE = 1; // Se habilitan las interrupciones en general
 
     Lcd_Out(1, 1, "Turno:   0");
 
-    // Pasamos la lógica de tratar el numero a mostrar en el LCD del interrupt al main, al solo poder usar las funciones lcd en uno de estos
+    // Pasamos la logica de tratar el numero a mostrar en el LCD del interrupt al main
     while(1){
         if(escribir == true){
             numero++;

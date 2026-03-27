@@ -1,10 +1,10 @@
-#line 1 "C:/Users/looko/Desktop/trabajos uni/HAE/practicas/p4b/p4b.c"
+#line 1 "C:/Users/looko/Desktop/trabajos uni/HAE/practicas2026HAE/p4b/p4b.c"
 #line 1 "c:/users/public/documents/mikroelektronika/mikroc pro for pic/include/stdbool.h"
 
 
 
  typedef char _Bool;
-#line 4 "C:/Users/looko/Desktop/trabajos uni/HAE/practicas/p4b/p4b.c"
+#line 4 "C:/Users/looko/Desktop/trabajos uni/HAE/practicas2026HAE/p4b/p4b.c"
 sbit LCD_RS at RD2_bit;
 sbit LCD_EN at PORTD.B3;
 sbit LCD_D7 at RD7_bit;
@@ -21,7 +21,6 @@ sbit LCD_D5_Direction at TRISD5_bit;
 sbit LCD_D4_Direction at TRISD4_bit;
 
 int x;
-
 
  _Bool  candado =  0 ;
 

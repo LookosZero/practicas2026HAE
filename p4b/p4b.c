@@ -17,8 +17,7 @@ sbit LCD_D5_Direction at TRISD5_bit;
 sbit LCD_D4_Direction at TRISD4_bit;
 
 int x;
-//La funcion de candado es cancelar el flanco de subida cuando dejamos de presionar el botón, que en esta interrupción RB5 cuenta también:
-//CUIDADO, es un bool que de base no funciona en mikroC, hay que poner el include de arriba:
+//La funcion de candado es cancelar el flanco de subida de las interripciones RB cuando dejamos de presionar el boton
 bool candado = false;
 
 void interrupt(){
@@ -40,19 +39,19 @@ void interrupt(){
         candado = false;
     }
 
-    x = PORTB; // hay que leer el puerto B antes de borrar el flag
-    INTCON.RBIF = 0; // se borra el flag
+    x = PORTB; // Hay que leer el puerto B antes de borrar el flag
+    INTCON.RBIF = 0; // Se borra el flag
 }
 
 void main(){
     ADCON1 = 0x07;
     Lcd_Init();
 
-    TRISB.B5 = 1; // x = 4, 5, 6, 7
+    TRISB.B5 = 1;
     x = PORTB;
-    INTCON.RBIF = 0; // se pone el flag a 0
-    INTCON.RBIE = 1; // se habilita la interrupción por cambio de nivel
-    INTCON.GIE = 1; // se habilitan las interrupciones en general
+    INTCON.RBIF = 0; // Se pone el flag a 0
+    INTCON.RBIE = 1; // Se habilita la interrupción por cambio de nivel
+    INTCON.GIE = 1; // Se habilitan las interrupciones en general
 
     while(1){
 

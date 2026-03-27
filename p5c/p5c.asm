@@ -121,17 +121,17 @@ _main:
 	BCF         INTCON+0, 2 
 ;p5c.c,82 :: 		INTCON.TMR0IE = 1;
 	BSF         INTCON+0, 5 
-;p5c.c,84 :: 		INTCON.GIE = 1; // se habilitan las interrupciones en general
+;p5c.c,85 :: 		INTCON.GIE = 1;
 	BSF         INTCON+0, 7 
-;p5c.c,86 :: 		PORTC.B0 = 0;
+;p5c.c,87 :: 		PORTC.B0 = 0;
 	BCF         PORTC+0, 0 
-;p5c.c,87 :: 		PORTC.B7 = 0;
+;p5c.c,88 :: 		PORTC.B7 = 0;
 	BCF         PORTC+0, 7 
-;p5c.c,89 :: 		while(1){
+;p5c.c,90 :: 		while(1){
 L_main8:
-;p5c.c,91 :: 		}
-	GOTO        L_main8
 ;p5c.c,92 :: 		}
+	GOTO        L_main8
+;p5c.c,93 :: 		}
 L_end_main:
 	GOTO        $+0
 ; end of _main

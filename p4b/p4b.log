@@ -1,11 +1,11 @@
-0	1	mikroCPIC1618.exe -MSF -DBG -pP18F452 -DL -O11111114 -fo8 -N"C:\Users\looko\Desktop\trabajos uni\HAE\practicas\p4b\p4b.mcppi" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Defs\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\uses\P18\" -SP"C:\Users\looko\Desktop\trabajos uni\HAE\practicas\p4b\" -IP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\uses\P18\" "p4b.c" "__Lib_Math.mcl" "__Lib_MathDouble.mcl" "__Lib_System.mcl" "__Lib_Delays.mcl" "__Lib_CString.mcl" "__Lib_Conversions.mcl" "__Lib_LcdConsts.mcl" "__Lib_Lcd.mcl"	 
+0	1	mikroCPIC1618.exe -MSF -DBG -pP18F452 -DL -O11111114 -fo8 -N"C:\Users\looko\Desktop\trabajos uni\HAE\practicas2026HAE\p4b\p4b.mcppi" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Defs\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\uses\P18\" -SP"C:\Users\looko\Desktop\trabajos uni\HAE\practicas2026HAE\p4b\" -IP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\uses\P18\" -IP"C:\Users\looko\Desktop\trabajos uni\HAE\practicas2026HAE\p4b\" "p4b.c" "__Lib_Math.mcl" "__Lib_MathDouble.mcl" "__Lib_System.mcl" "__Lib_Delays.mcl" "__Lib_CString.mcl" "__Lib_Conversions.mcl" "__Lib_LcdConsts.mcl" "__Lib_Lcd.mcl"	 
 hint: 0	1139	Available RAM: 1515 [bytes], Available ROM: 32768 [bytes]	 
 diagnostics: 0	122	Compilation Started	stdbool.h
-diagnostics: 60	123	Compiled Successfully	p4b.c
-diagnostics: 0	127	All files Compiled in 62 ms	 
+diagnostics: 59	123	Compiled Successfully	p4b.c
+diagnostics: 0	127	All files Compiled in 63 ms	 
 hint: 0	1144	Used RAM (bytes): 16 (1%)  Free RAM (bytes): 1499 (99%)	Used RAM (bytes): 16 (1%)  Free RAM (bytes): 1499 (99%)
 hint: 0	1144	Used ROM (bytes): 740 (2%)  Free ROM (bytes): 32028 (98%)	Used ROM (bytes): 740 (2%)  Free ROM (bytes): 32028 (98%)
 diagnostics: 0	125	Project Linked Successfully	p4b.mcppi
-diagnostics: 0	128	Linked in 16 ms	 
-diagnostics: 0	129	Project 'p4b.mcppi' completed: 234 ms	 
-diagnostics: 0	103	Finished successfully: 25 feb. 2026, 17:51:09	p4b.mcppi
+diagnostics: 0	128	Linked in 15 ms	 
+diagnostics: 0	129	Project 'p4b.mcppi' completed: 93 ms	 
+diagnostics: 0	103	Finished successfully: 27 mar. 2026, 18:22:12	p4b.mcppi

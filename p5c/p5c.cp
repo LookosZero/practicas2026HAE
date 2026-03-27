@@ -1,10 +1,10 @@
-#line 1 "C:/Users/looko/Desktop/trabajos uni/HAE/practicas/p5c/p5c.c"
+#line 1 "C:/Users/looko/Desktop/trabajos uni/HAE/practicas2026HAE/p5c/p5c.c"
 #line 1 "c:/users/public/documents/mikroelektronika/mikroc pro for pic/include/stdbool.h"
 
 
 
  typedef char _Bool;
-#line 3 "C:/Users/looko/Desktop/trabajos uni/HAE/practicas/p5c/p5c.c"
+#line 3 "C:/Users/looko/Desktop/trabajos uni/HAE/practicas2026HAE/p5c/p5c.c"
  _Bool  lock =  0 ;
 
 void interrupt(){
@@ -85,6 +85,7 @@ void main(){
  T0CON = 0x06;
  INTCON.TMR0IF = 0;
  INTCON.TMR0IE = 1;
+
 
  INTCON.GIE = 1;
 
