@@ -1,4 +1,4 @@
-#line 1 "C:/Users/looko/Desktop/trabajos uni/HAE/Apracticas/p1b/p1b.c"
+#line 1 "C:/Users/looko/Desktop/trabajos uni/HAE/practicas2026HAE/p1b/p1b.c"
 void main() {
 
 

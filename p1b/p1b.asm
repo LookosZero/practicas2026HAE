@@ -4,15 +4,15 @@ _main:
 ;p1b.c,1 :: 		void main() {
 ;p1b.c,4 :: 		int LED[] = {0x01,0x03,0x07,0x0F,0x1F,0x3F,0x7F,0xFF,0x00};
 	MOVLW       ?ICSmain_LED_L0+0
-	MOVWF       TBLPTRL+0 
+	MOVWF       TBLPTRL 
 	MOVLW       hi_addr(?ICSmain_LED_L0+0)
-	MOVWF       TBLPTRL+1 
+	MOVWF       TBLPTRH 
 	MOVLW       higher_addr(?ICSmain_LED_L0+0)
-	MOVWF       TBLPTRL+2 
+	MOVWF       TBLPTRU 
 	MOVLW       main_LED_L0+0
-	MOVWF       FSR1L+0 
+	MOVWF       FSR1 
 	MOVLW       hi_addr(main_LED_L0+0)
-	MOVWF       FSR1L+1 
+	MOVWF       FSR1H 
 	MOVLW       20
 	MOVWF       R0 
 	MOVLW       1
@@ -35,10 +35,10 @@ L_main0:
 	RLCF        R1, 1 
 	MOVLW       main_LED_L0+0
 	ADDWF       R0, 0 
-	MOVWF       FSR0L+0 
+	MOVWF       FSR0 
 	MOVLW       hi_addr(main_LED_L0+0)
 	ADDWFC      R1, 0 
-	MOVWF       FSR0L+1 
+	MOVWF       FSR0H 
 	MOVF        POSTINC0+0, 0 
 	MOVWF       PORTC+0 
 ;p1b.c,20 :: 		delay_ms(100);

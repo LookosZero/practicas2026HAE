@@ -8,6 +8,7 @@ void main(){
     TRISA.B0 = 0;
     TRISA.B1 = 0;
     TRISD = 0x00;
+    
     // Ambos displays apagados inicialmente
     PORTA.B0 = 0;
     PORTA.B0 = 0;
