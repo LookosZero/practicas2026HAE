@@ -15,13 +15,19 @@ sbit LCD_D5_Direction at TRISC5_bit;
 sbit LCD_D6_Direction at TRISC6_bit;
 sbit LCD_D7_Direction at TRISC7_bit;
 
+
 const int ALFA = 3036;
 const float LAMBDA = 0.0048875;
+
 
 int v0 = 0;
 float vi = 0.0;
 
+
 float pa = 0.0;
+float pressure = 0.0;
+int unitOption = 0;
+
 
 char txt[16];
 
@@ -36,34 +42,39 @@ float vToPa(float v){
 }
 
 float changeUnit(float pas, int opt){
- float pressure;
+ float converted;
 
  switch(opt){
  case 0:
- pressure = 6.8927 * pas/1000;
+ converted = pas;
  break;
  case 1:
- pressure = 101.325 * pas/1000;
+ converted = pas / 6894.757;
  break;
  case 2:
- pressure = 0.1 * pas/1000;
+ converted = pas / 101325.0;
  break;
  case 3:
- pressure = 0.13328 * pas/1000;
+ converted = pas / 100.0;
  break;
  case 4:
- pressure = 0.001 * pas/1000;
+ converted = pas / 133.322;
  break;
  case 5:
- pressure = 98.1 * pas/1000;
+ converted = pas / 10000.0;
  break;
  case 6:
- pressure = 98.1 * pas/1000;
+ converted = pas / 98066.5;
+ break;
+ case 7:
+ converted = pas / 98066.5;
+ break;
  default:
+ converted = pas;
  break;
  }
 
- return pressure;
+ return converted;
 }
 
 void interrupt(){
@@ -76,8 +87,8 @@ void interrupt(){
  vi = v0 * LAMBDA;
 
  pa = vToPa(vi);
-
- mostrarLCD(pa);
+ pressure = changeUnit(pa, unitOption);
+ mostrarLCD(pressure);
 
 
  T0CON.TMR0ON = 1;
@@ -104,6 +115,13 @@ void interrupt(){
 
  if(INTCON3.INT1IF == 1){
 
+ unitOption++;
+ if(unitOption > 7){
+ unitOption = 0;
+ }
+
+ pressure = changeUnit(pa, unitOption);
+ mostrarLCD(pressure);
 
 
  INTCON3.INT1IF = 0;

@@ -26,6 +26,12 @@ interrupt
 					SETFOV32
 					RES032
 				SETFOV32
+	changeUnit
+		Div_32x32_FP
+			SETFDZ32
+			RES032
+			SETFOV32
+			SETFUN32
 	mostrarLCD
 		Lcd_Cmd
 			Delay_1us

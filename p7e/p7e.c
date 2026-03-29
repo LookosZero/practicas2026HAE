@@ -14,14 +14,20 @@ sbit LCD_D5_Direction at TRISC5_bit;
 sbit LCD_D6_Direction at TRISC6_bit;
 sbit LCD_D7_Direction at TRISC7_bit;
 
+// Constantes para configurar timer y AD
 const int ALFA = 3036;
 const float LAMBDA = 0.0048875;
 
+// Variables para el voltaje
 int v0 = 0;
 float vi = 0.0;
 
+// Variables para la presion
 float pa = 0.0;
+float pressure = 0.0;
+int unitOption = 0;
 
+// Texto para el LCD
 char txt[16];
 
 void mostrarLCD(float value){
@@ -35,34 +41,39 @@ float vToPa(float v){
 }
 
 float changeUnit(float pas, int opt){
-    float pressure;
+    float converted;
 
     switch(opt){
-        case 0: // PSI
-            pressure = 6.8927 * pas/1000;
+        case 0: // Pa
+            converted = pas;
             break;
-        case 1: // Atm
-            pressure = 101.325 * pas/1000;
+        case 1: // PSI
+            converted = pas / 6894.757;
             break;
-        case 2: // mbar
-            pressure = 0.1 * pas/1000;
+        case 2: // Atm
+            converted = pas / 101325.0;
             break;
-        case 3: // mmHg
-            pressure = 0.13328 * pas/1000;
+        case 3: // mbar
+            converted = pas / 100.0;
             break;
-        case 4: // n/m^2
-            pressure = 0.001 * pas/1000;
+        case 4: // mmHg
+            converted = pas / 133.322;
             break;
-        case 5: // Kg/cm^2
-            pressure = 98.1 * pas/1000;
+        case 5: // N/cm^2
+            converted = pas / 10000.0;
             break;
-        case 6: // Kp/cm^2
-            pressure = 98.1 * pas/1000;
+        case 6: // Kg/cm^2
+            converted = pas / 98066.5;
+            break;
+        case 7: // Kp/cm^2
+            converted = pas / 98066.5;
+            break;
         default:
+            converted = pas;
             break;
     }
 
-    return pressure;
+    return converted;
 }
 
 void interrupt(){
@@ -75,8 +86,8 @@ void interrupt(){
         vi = v0 * LAMBDA;
 
         pa = vToPa(vi);
-
-        mostrarLCD(pa);
+        pressure = changeUnit(pa, unitOption);
+        mostrarLCD(pressure);
 
         // Activar el timer
         T0CON.TMR0ON = 1;
@@ -102,7 +113,14 @@ void interrupt(){
 
     // Interrupcion pulsacion del boton
     if(INTCON3.INT1IF == 1){
+        // Cambiar unidad y refrescar LCD sin esperar al timer
+        unitOption++;
+        if(unitOption > 7){
+            unitOption = 0;
+        }
 
+        pressure = changeUnit(pa, unitOption);
+        mostrarLCD(pressure);
 
 
         INTCON3.INT1IF = 0;
