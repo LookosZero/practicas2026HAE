@@ -1,1 +1,5 @@
 main
+	Lcd_Init
+		Delay_5500us
+		Delay_1us
+interrupt
