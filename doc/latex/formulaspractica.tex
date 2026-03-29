@@ -79,18 +79,6 @@
 \newcommand{\Mto}{\longmapsto}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 \geometry{
   a4paper,
   left=1.5cm,
@@ -100,7 +88,6 @@
   headheight=1cm,
   footskip=1cm
 }
-
 
 
 \begin{document}  
@@ -114,15 +101,15 @@
 \begin{itemize}
   
 
-\item $\alpha$ es el valor desde el que empieza a contar el timer
+\item $\alpha$ es el valor desde el que empieza a contar el timer.
 
-\item $n = $ 8/16 bits 
+\item $n = $ 8 o 16 bits.
 
-\item $T_{\text{overflow}} =$ tiempo que tarda en hacer overflow (tiempo que queremos temporizar en segundos)
+\item $T_{\text{overflow}} =$ tiempo que tarda en hacer overflow (tiempo que queremos temporizar en segundos).
 
- \item $F_{\text{osc}} = $ frecuencia de oscilación del chip (normalmente $8 \cdot 10^6$Hz) 
+ \item $F_{\text{osc}} = $ frecuencia de oscilación del chip (normalmente $8 \cdot 10^6$Hz).
 
-\item $\operatorname{prescaler} = $ lo que divide la frecuencia. Tienen que ser potencias de $2$ hasta $128$ 
+\item $\operatorname{prescaler} = $ lo que divide la frecuencia. Tienen que ser potencias de $2$ hasta $128$.
 
 
 \end{itemize}
@@ -151,7 +138,7 @@
 
 \end{center}
 Esta fórmula se calcula desde el menor prescaler hasta el mayor. Debemos empezar con $n = 8$. Si sigue dando negativo, probamos con $n = 16$. 
-Hay que obtener el primer valor positivo. La idea es que el timer empiece a contar desde $\alpha$ y se produzca un overflow.
+Hay que obtener el primer valor positivo. La idea es que el timer empiece a contar desde $\alpha$ y se produzca un overflow que provocará una interrupción.
 \\
 En esta práctica nos interesa el $\boldsymbol{\alpha}$ y el $\mathbf{prescaler}$.
 
@@ -161,23 +148,38 @@ En esta práctica nos interesa el $\boldsymbol{\alpha}$ y el $\mathbf{prescaler}
 \[ \lambda = \frac{v_{\text{ref+}}-v_{\text{ref-}}}{2^n-1} \]
 \normalsize
 \begin{itemize}
-  \item $\lambda$ es la resolución por la que debemos multiplicar el valor inicial de la lectura de los registros \textbf{ADRESH} y \textbf{ADRESL}
-  \item  $n$ es el número de bits que podemos guardar en los registros  \textbf{ADRESH} y \textbf{ADRESL} (en nuestro caso $n = 10$)
-  \item $v_{\text{ref+}}$ es el voltaje alto 
-  \item $v_{\text{ref-}}$ es el voltaje bajo
+  \item $\lambda$ es la resolución por la que debemos multiplicar el valor inicial de la lectura de los registros \textbf{ADRESH} y \textbf{ADRESL}.
+  \item  $n$ es el número de bits que podemos guardar en los registros  \textbf{ADRESH} y \textbf{ADRESL} (en nuestro caso $n = 10$).
+  \item $v_{\text{ref+}}$ es el voltaje alto. 
+  \item $v_{\text{ref-}}$ es el voltaje bajo.
 \end{itemize}
 \subsection{Fórmula $\mathbf{prescaler}$}
 \[ \frac{f_{\text{osc}}}{f_{\text{AD}}} = k \]
 De este valor $k$, calculamos la siguiente potencia de 2 (máxima hasta 64).
 \begin{itemize}
-  \item $f_{\text{osc}}$ es la frecuencia del chip (normalmente $8 \cdot 10^6$)
-  \item $f_{\text{AD}}$ es la frecuencia interna del AD (normalmente $625 \cdot 10^3$)
+  \item $f_{\text{osc}}$ es la frecuencia del chip (normalmente $8 \cdot 10^6$).
+  \item $f_{\text{AD}}$ es la frecuencia interna del AD (normalmente $625 \cdot 10^3$).
 \end{itemize}
 \begin{ejemplo} Para frecuencia básica del chip:
   \[ \frac{8 \cdot 10^6}{625 \cdot 10^3} = 12.8\]
-  Así que ponemos $\operatorname{prescaler} = 16$
+  Así que ponemos $\operatorname{prescaler} = 16$.
 \end{ejemplo}
-En esta práctica nos interesa $\boldsymbol{\lambda}$ y el valor del $\mathbf{prescaler}$
+En esta práctica nos interesa $\boldsymbol{\lambda}$ y el valor del $\mathbf{prescaler}$.
+
+\noindent Con \textbf{ADCON0.GO = 1} realizamos una medición que terminará con una interrupción $\operatorname{PIR1.ADIF} = 1$.
+
+\newpage
+Para leer los 10 bits de los registros tenemos dos formas:
+\begin{itemize}
+  \item Si \textbf{ADFM = 1} (justificación a la derecha):
+  \[
+    \operatorname{aux} = (\operatorname{ADRESH} \ll 8) + \operatorname{ADRESL}
+  \]
+  \item Si \textbf{ADFM = 0} (justificación a la izquierda):
+  \[
+    \operatorname{aux} = (\operatorname{ADRESH} \ll 2) + (\operatorname{ADRESL} \gg 6)
+  \]
+\end{itemize}
 \end{document}
 
 
