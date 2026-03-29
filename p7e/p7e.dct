@@ -70,6 +70,7 @@ adon_bit
 adres
 adresh
 adresl
+alfa
 an0
 an0_bit
 an1
@@ -366,6 +367,7 @@ ipr1
 ipr2
 irvst
 irvst_bit
+lambda
 lata
 lata0
 lata0_bit
@@ -492,6 +494,7 @@ memcmp
 memcpy
 memmove
 memset
+mostrarlcd
 mul_16x16_s
 mul_16x16_u
 mul_32x32_fp
@@ -544,6 +547,7 @@ ov
 ov_bit
 p
 p_bit
+pa
 pc
 pcfg0
 pcfg0_bit
@@ -1102,14 +1106,18 @@ txip
 txip_bit
 txreg
 txsta
+txt
 ua
 ua_bit
+v0
 vdelay_advanced_ms
 vdelay_ms
+vi
 vrefm
 vrefm_bit
 vrefp
 vrefp_bit
+vtopa
 w
 wcol
 wcol_bit

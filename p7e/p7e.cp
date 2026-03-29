@@ -15,12 +15,93 @@ sbit LCD_D5_Direction at TRISC5_bit;
 sbit LCD_D6_Direction at TRISC6_bit;
 sbit LCD_D7_Direction at TRISC7_bit;
 
+const int ALFA = 3036;
+const float LAMBDA = 0.0048875;
+
+int v0 = 0;
+float vi = 0.0;
+
+float pa = 0.0;
+
+char txt[16];
+
+void mostrarLCD(float value){
+ Lcd_Cmd(_Lcd_Clear);
+ FloatToStr(value, txt);
+ Lcd_Out(1, 3, txt);
+}
+
+float vToPa(float v){
+ return 54.2 * v - 14.11;
+}
+
 void interrupt(){
 
+ if(PIR1.ADIF == 1){
+
+
+ v0 = (ADRESH << 8) + ADRESL;
+ vi = v0 * LAMBDA;
+
+ pa = vToPa(vi);
+
+ mostrarLCD(pa);
+
+
+ T0CON.TMR0ON = 1;
+ TMR0H = (ALFA >> 8);
+ TMR0L = ALFA;
+
+
+ ADCON0.ADON = 0;
+ PIR1.ADIF = 0;
+ }
+
+ if(INTCON.TMR0IF == 1){
+
+
+ ADCON0.ADON = 1;
+ ADCON0.GO = 1;
+
+
+ T0CON.TMR0ON = 0;
+ INTCON.TMR0IF = 0;
+ }
 }
 
 void main(){
  Lcd_init();
+
+
+ TRISB.B0 = 0;
+ TRISB.B1 = 1;
+ TRISE.B2 = 1;
+
+
+ ADCON0 = 0x79;
+ ADCON1 = 0xC0;
+
+
+ INTCON.PEIE = 1;
+
+
+ PIR1.ADIF = 0;
+ PIE1.ADIE = 1;
+
+
+ T0CON = 0x83;
+ TMR0H = (ALFA >> 8);
+ TMR0L = ALFA;
+
+
+ INTCON.TMR0IF = 0;
+ INTCON.TMR0IE = 1;
+
+
+ INTCON.GIE = 1;
+
+
+ ADCON0.GO = 1;
 
  while(1){
 
