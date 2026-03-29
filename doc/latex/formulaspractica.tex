@@ -1,0 +1,185 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsfonts} 
+\usepackage{amsmath}
+\usepackage{amsthm} 
+\usepackage{amssymb}
+\usepackage{nicefrac}
+\usepackage{enumitem}
+\usepackage{fontawesome}
+\usepackage{setspace}
+\usepackage{tikz-cd}
+\usepackage{upgreek}
+\usepackage{diffcoeff}  
+\usepackage{graphicx}
+\usepackage{mathtools}
+
+
+
+\definecolor{azul}   {HTML}{1B4F72}
+\definecolor{azulmed}{HTML}{2874A6}
+\definecolor{naranja}{HTML}{CA6F1E}
+\definecolor{verde}  {HTML}{1E8449}
+\definecolor{lila}   {HTML}{6C3483}
+\definecolor{rojo}   {HTML}{922B21}
+\definecolor{gris}   {HTML}{5D6D7E}
+\definecolor{linea}  {HTML}{AEB6BF}
+\definecolor{faz}    {HTML}{EAF2F8}
+\definecolor{fna}    {HTML}{FEF9E7}
+\definecolor{fve}    {HTML}{E9F7EF}
+\definecolor{fli}    {HTML}{F4ECF7}
+\definecolor{fro}    {HTML}{FDEDEC}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\usetikzlibrary{
+  babel,
+  arrows.meta,calc,patterns,decorations.pathmorphing,
+  decorations.markings,shapes.geometric,positioning,
+  backgrounds,fit,3d
+}
+\pgfplotsset{compat=1.18}
+
+\usetikzlibrary{arrows.meta,calc,patterns,decorations.pathmorphing,
+  decorations.markings,shapes.geometric,positioning,backgrounds,fit,3d}
+\usepackage[many,breakable]{tcolorbox}
+
+\usepackage{verbatim}  
+
+% Definir el entorno de definición
+
+\theoremstyle{definition} % Texto en letra normal (no cursiva)
+\newtheorem{definicion}{Definición}[section] % Numeradas por secció
+\newtheorem{teorema}{Teorema} [section] % Numerados por sección
+\newtheorem{lema}{Lema}[teorema]
+\newtheorem{corolario}{Corolario}[teorema]
+\newtheorem{ejemplo}{Ejemplo}[subsection]
+\newtheorem{proposicion}{Proposición}[section]
+\newcommand{\bolaa}[2][\varepsilon]{B_{#1}(#2)}
+\newcommand{\bolac}[2][\varepsilon]{{B}_{#1}[#2]}
+\usepackage{geometry}
+\newcommand{\clau}[1]{\overline{#1}}
+\newcommand{\inn}[1]{#1 \in \mathbb{N}}
+\newcommand{\kas}[1]{#1 \xrightarrow{k \to \infty}}
+\newcommand{\tendsto}[3]{#1 \xrightarrow{#2 \to #3}}
+\newcommand{\col}[1]{\begin{pmatrix} #1_1 \\ \vdots \\ #1_n \end{pmatrix}}
+\newcommand{\R}{\mathbb{R}}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+\newcommand{\inner}[2]{\left\langle#1,\,#2\right\rangle}
+\newcommand{\Int}{\operatorname{int}}
+\newcommand{\Gr}{\operatorname{Gr}}
+\newcommand{\Dom}{\operatorname{Dom}}
+\newcommand{\To}{\longrightarrow}
+\newcommand{\Mto}{\longmapsto}
+
+
+\geometry{
+  a4paper,
+  left=1.5cm,
+  right=1.5cm,
+  top=2cm,
+  bottom=2cm,
+  headheight=1cm,
+  footskip=1cm
+}
+
+
+\begin{document}  
+
+
+\newpage
+\section{Fórmulas Timer}
+\large
+\[\alpha = 2^n - \dfrac{T_{\text{overflow}} \cdot F_{\text{osc}}}{4 \cdot \operatorname{prescaler}}\] 
+\normalsize
+\begin{itemize}
+  
+
+\item $\alpha$ es el valor desde el que empieza a contar el timer.
+
+\item $n = $ 8 o 16 bits.
+
+\item $T_{\text{overflow}} =$ tiempo que tarda en hacer overflow (tiempo que queremos temporizar en segundos).
+
+ \item $F_{\text{osc}} = $ frecuencia de oscilación del chip (normalmente $8 \cdot 10^6$Hz).
+
+\item $\operatorname{prescaler} = $ lo que divide la frecuencia. Tienen que ser potencias de $2$ hasta $128$.
+
+
+\end{itemize}
+\begin{center}
+\begin{tikzpicture}
+  % Segmento base
+  \draw[thick] (0,0) -- (10,0);
+
+  % Marcas en 0 y 1
+  \draw (0,0.15) -- (0,-0.15) node[below] {$0$};
+  \draw (10,0.15) -- (10,-0.15) node[below] {$1$};
+
+  % Posición de alpha (ajustable)
+  \def\apos{4}
+
+  % Flecha en alpha
+  \draw[->, thick] (\apos,1) -- (\apos,0.1);
+  \node[above] at (\apos,1) {$\alpha$};
+
+  % Bracket debajo del tramo (alpha,1)
+  \draw[decorate,decoration={brace,mirror,amplitude=6pt}]
+    (\apos,-0.2) -- (10,-0.2)
+    node[midway,below=8pt] {$T_{\text{overflow}}$};
+
+\end{tikzpicture}
+
+\end{center}
+Esta fórmula se calcula desde el menor prescaler hasta el mayor. Debemos empezar con $n = 8$. Si sigue dando negativo, probamos con $n = 16$. 
+Hay que obtener el primer valor positivo. La idea es que el timer empiece a contar desde $\alpha$ y se produzca un overflow que provocará una interrupción.
+\\
+En esta práctica nos interesa el $\boldsymbol{\alpha}$ y el $\mathbf{prescaler}$.
+
+\section{Fórmulas AD}
+\subsection{Fórmula $\lambda$}
+\large
+\[ \lambda = \frac{v_{\text{ref+}}-v_{\text{ref-}}}{2^n-1} \]
+\normalsize
+\begin{itemize}
+  \item $\lambda$ es la resolución por la que debemos multiplicar el valor inicial de la lectura de los registros \textbf{ADRESH} y \textbf{ADRESL}.
+  \item  $n$ es el número de bits que podemos guardar en los registros  \textbf{ADRESH} y \textbf{ADRESL} (en nuestro caso $n = 10$).
+  \item $v_{\text{ref+}}$ es el voltaje alto. 
+  \item $v_{\text{ref-}}$ es el voltaje bajo.
+\end{itemize}
+\subsection{Fórmula $\mathbf{prescaler}$}
+\[ \frac{f_{\text{osc}}}{f_{\text{AD}}} = k \]
+De este valor $k$, calculamos la siguiente potencia de 2 (máxima hasta 64).
+\begin{itemize}
+  \item $f_{\text{osc}}$ es la frecuencia del chip (normalmente $8 \cdot 10^6$).
+  \item $f_{\text{AD}}$ es la frecuencia interna del AD (normalmente $625 \cdot 10^3$).
+\end{itemize}
+\begin{ejemplo} Para frecuencia básica del chip:
+  \[ \frac{8 \cdot 10^6}{625 \cdot 10^3} = 12.8\]
+  Así que ponemos $\operatorname{prescaler} = 16$.
+\end{ejemplo}
+En esta práctica nos interesa $\boldsymbol{\lambda}$ y el valor del $\mathbf{prescaler}$.
+
+\noindent Con \textbf{ADCON0.GO = 1} realizamos una medición que terminará con una interrupción $\operatorname{PIR1.ADIF} = 1$.
+
+\newpage
+Para leer los 10 bits de los registros tenemos dos formas:
+\begin{itemize}
+  \item Si \textbf{ADFM = 1} (justificación a la derecha):
+  \[
+    \operatorname{aux} = (\operatorname{ADRESH} \ll 8) + \operatorname{ADRESL}
+  \]
+  \item Si \textbf{ADFM = 0} (justificación a la izquierda):
+  \[
+    \operatorname{aux} = (\operatorname{ADRESH} \ll 2) + (\operatorname{ADRESL} \gg 6)
+  \]
+\end{itemize}
+\end{document}
+
+
