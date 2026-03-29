@@ -35,7 +35,39 @@ float vToPa(float v){
  return 54.2 * v - 14.11;
 }
 
+float changeUnit(float pas, int opt){
+ float pressure;
+
+ switch(opt){
+ case 0:
+ pressure = 6.8927 * pas/1000;
+ break;
+ case 1:
+ pressure = 101.325 * pas/1000;
+ break;
+ case 2:
+ pressure = 0.1 * pas/1000;
+ break;
+ case 3:
+ pressure = 0.13328 * pas/1000;
+ break;
+ case 4:
+ pressure = 0.001 * pas/1000;
+ break;
+ case 5:
+ pressure = 98.1 * pas/1000;
+ break;
+ case 6:
+ pressure = 98.1 * pas/1000;
+ default:
+ break;
+ }
+
+ return pressure;
+}
+
 void interrupt(){
+
 
  if(PIR1.ADIF == 1){
 
@@ -57,6 +89,7 @@ void interrupt(){
  PIR1.ADIF = 0;
  }
 
+
  if(INTCON.TMR0IF == 1){
 
 
@@ -66,6 +99,14 @@ void interrupt(){
 
  T0CON.TMR0ON = 0;
  INTCON.TMR0IF = 0;
+ }
+
+
+ if(INTCON3.INT1IF == 1){
+
+
+
+ INTCON3.INT1IF = 0;
  }
 }
 
@@ -96,6 +137,11 @@ void main(){
 
  INTCON.TMR0IF = 0;
  INTCON.TMR0IE = 1;
+
+
+ INTCON2.INTEDG1 = 1;
+ INTCON3.INT1IF = 0;
+ INTCON3.INT1IE = 1;
 
 
  INTCON.GIE = 1;

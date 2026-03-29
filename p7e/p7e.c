@@ -34,8 +34,40 @@ float vToPa(float v){
     return 54.2 * v - 14.11;
 }
 
+float changeUnit(float pas, int opt){
+    float pressure;
+
+    switch(opt){
+        case 0: // PSI
+            pressure = 6.8927 * pas/1000;
+            break;
+        case 1: // Atm
+            pressure = 101.325 * pas/1000;
+            break;
+        case 2: // mbar
+            pressure = 0.1 * pas/1000;
+            break;
+        case 3: // mmHg
+            pressure = 0.13328 * pas/1000;
+            break;
+        case 4: // n/m^2
+            pressure = 0.001 * pas/1000;
+            break;
+        case 5: // Kg/cm^2
+            pressure = 98.1 * pas/1000;
+            break;
+        case 6: // Kp/cm^2
+            pressure = 98.1 * pas/1000;
+        default:
+            break;
+    }
+
+    return pressure;
+}
+
 void interrupt(){
 
+    // Interrupcion por medicion en el AD
     if(PIR1.ADIF == 1){
 
         // Leer medicion
@@ -56,6 +88,7 @@ void interrupt(){
         PIR1.ADIF = 0;
     }
 
+    // Interrupcion overflow del Timer
     if(INTCON.TMR0IF == 1){
 
         // Realizar medicion
@@ -65,6 +98,14 @@ void interrupt(){
         // Desactivar timer
         T0CON.TMR0ON = 0;
         INTCON.TMR0IF = 0;
+    }
+
+    // Interrupcion pulsacion del boton
+    if(INTCON3.INT1IF == 1){
+
+
+
+        INTCON3.INT1IF = 0;
     }
 }
 
@@ -95,6 +136,11 @@ void main(){
     // Activar interrupciones timer
     INTCON.TMR0IF = 0;
     INTCON.TMR0IE = 1;
+
+    // Configurar interrupciones boton
+    INTCON2.INTEDG1 = 1;
+    INTCON3.INT1IF = 0;
+    INTCON3.INT1IE = 1;
 
     // Activar interrupciones globales
     INTCON.GIE = 1;
