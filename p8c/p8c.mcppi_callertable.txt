@@ -1,0 +1,3 @@
+main
+	SPI1_Init
+	SPI1_Write
