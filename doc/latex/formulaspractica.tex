@@ -142,14 +142,14 @@ Hay que obtener el primer valor positivo. La idea es que el timer empiece a cont
 \\
 En esta práctica nos interesa el $\boldsymbol{\alpha}$ y el $\mathbf{prescaler}$.
 
-\section{Fórmulas AD}
+\section{Fórmulas A/D}
 \subsection{Fórmula $\lambda$}
 \large
 \[ \lambda = \frac{v_{\text{ref+}}-v_{\text{ref-}}}{2^n-1} \]
 \normalsize
 \begin{itemize}
-  \item $\lambda$ es la resolución por la que debemos multiplicar el valor inicial de la lectura de los registros \textbf{ADRESH} y \textbf{ADRESL}.
-  \item  $n$ es el número de bits que podemos guardar en los registros  \textbf{ADRESH} y \textbf{ADRESL} (en nuestro caso $n = 10$).
+  \item $\lambda$ es la resolución por la que debemos multiplicar el valor inicial de la lectura de los registros \textbf{ADRESH} y \textbf{ADRESL}. Representa el valor mínimo en el que debe aumentarse o reducirse la tensión de entrada ($v_i \pm \lambda$) para que, con independencia del valor que tenga la tensión de entrada ($v_i$), se produzca un cambio de valor en el dígito menos significativo de la salida del convertidor.
+  \item $n$ es el número de bits que podemos guardar en los registros  \textbf{ADRESH} y \textbf{ADRESL} (en nuestro caso $n = 10$).
   \item $v_{\text{ref+}}$ es el voltaje alto. 
   \item $v_{\text{ref-}}$ es el voltaje bajo.
 \end{itemize}
@@ -180,6 +180,49 @@ Para leer los 10 bits de los registros tenemos dos formas:
     \operatorname{aux} = (\operatorname{ADRESH} \ll 2) + (\operatorname{ADRESL} \gg 6)
   \]
 \end{itemize}
+
+\section{Fórmulas D/A}
+\subsection{Fórmula $\lambda$}
+\large
+\[ \lambda = \frac{v_{\text{ref+}}-v_{\text{ref-}}}{2^n-1} \]
+\normalsize
+\begin{itemize}
+  \item $\lambda$ es la resolución, la variación que experimenta la tensión de salida ante el cambio de valor del bit menos significativo de las n entradas de datos.
+  \item $n$ es el número de bits máximo que tiene la entrada del DA (en nuestro caso $n = 10$).
+  \item $v_{\text{ref+}}$ es el voltaje alto. 
+  \item $v_{\text{ref-}}$ es el voltaje bajo.
+\end{itemize}
+\subsection{Fórmula $v_{0}$}
+\large
+\[v_{0} = \lambda \cdot D_{10} + v_{\text{ref-}}\]
+\normalsize
+\begin{itemize}
+  \item $v_{0}$ es la tensión de salida del DA.
+  \item $\lambda$ es la resolución calculada anteriormente.
+  \item $D_{10}$ es el valor decimal de los bits de entrada al DA. Es decir, el valor digital que nos interesa convertir a analógico.
+  \item $v_{\text{ref-}}$ es el voltaje bajo.
+\end{itemize}
+
+\subsection{Comunicación SPI}
+\begin{itemize}
+  \item \textbf{MOSI}: \textit{Master Output Slave Input}, también llamado \textbf{SDO}.
+  \item \textbf{MISO}: \textit{Master Input Slave Output}, también llamado \textbf{SDI} o \textbf{SDK}.
+\end{itemize}
+
+\begin{center}
+\Large PIC (Master) $\longrightarrow$ DAC (Slave)
+\end{center}
+
+\subsection{Código para mandar un valor digital D al D/A}
+\begin{verbatim}
+SPI1_Init();
+SYNC = 0;
+SPI1_Write(D >> 6);
+SPI1_Write(D << 2);
+SYNC = 1;
+\end{verbatim}
+\noindent\textbf{Nota:} El fabricante indica que primero hay que enviar los bits altos (H) y después los bits bajos (L).
+
 \end{document}
 
 
