@@ -1,19 +1,14 @@
-const float LAMBDA = 0.0048875;
+// DAC de 10 bits: 0..1023 para 0..5V
+// 2.5V corresponde aproximadamente a 512 justo la mitad
+const unsigned int DAC_0V = 0;
+const unsigned int DAC_2V5 = 512;
+const unsigned int DAC_5V = 1023;
 
-int floatToInt(float value){
-    if (value >= 0.0f) {
-        return (int)(value + 0.5f);
-    } else {
-        return (int)(value - 0.5f);
-    }
-}
-
-int digitalVoltage(float v, float lambda){
-    float D;
-    D = v/lambda;
-
-    return floatToInt(D);
-}
+// En ISIS, un envio+conversion tarda aproximadamente 56.1us
+// 70ms / 56.1us  = 1248 muestras (aprox.)
+// 28.75ms / 56.1us = 512 muestras (aprox.)
+const unsigned int HOLD_2V5_SAMPLES = 1248;
+const unsigned int RAMP_SAMPLES = 512;
 
 void sendDAC(int D){
     PORTC.B0 = 0; // SYNC = 0
@@ -24,9 +19,8 @@ void sendDAC(int D){
 
 void main(){
 
-    float voltage = 0.0;
-    int D = 0;
-    int i = 0;
+    unsigned int D = 0;
+    unsigned int i = 0;
 
     // Configuracion de puertos
     TRISC.B0 = 0;
@@ -37,44 +31,24 @@ void main(){
 
     while(1){
 
-        // Ciclo comienza con voltaje = 2.5
-        voltage = 2.5;
-        D = digitalVoltage(voltage, LAMBDA);
-
-        // Mostramos el voltaje en la salida durante 70ms
-        sendDAC(D);
-        delay_ms(70);
-
-        /*
-        Subimos el voltaje de forma continua a 5V durante 28.75ms.
-        Si cada iteracion son 56.1microSegundos 28750/56.1 = 512 pasos (aprox.)
-        Hay que subir 5 - 2.5 = 2.5 voltios por lo que el incremento sera de 2.5/512 = 0.00488 en cada paso (aprox.)
-        */
-        i = 0;
-        for(i = 0; i <= 512; i++){
-            voltage = 2.5 + (2.5 * i) / 512.0;
-            D = digitalVoltage(voltage, LAMBDA);
-
-            sendDAC(D);
-
-            delay_us(56);  // espera aprox. 56 microsegundos para que la subida dure 28.75 ms
+        // Mostramos el voltaje de 2.5V en la salida durante 70ms
+        for(i = 0; i < HOLD_2V5_SAMPLES; i++){
+            sendDAC(DAC_2V5);
         }
 
-        // Voltaje cae a 0 y mostramos
-        voltage = 0.0;
-        D = digitalVoltage(voltage, LAMBDA);
-
-        sendDAC(D);
-
-        // Incrementamos el voltaje de forma continua hasta 2.5V durante 28.75ms
-        i = 0;
-        for(i = 0; i <= 512; i++){
-            voltage = (2.5 * i) / 512.0;
-            D = digitalVoltage(voltage, LAMBDA);
-
+        // Rampa de 2.5V a 5V en 512 muestras (28.75ms aprox.)
+        for(i = 0; i < RAMP_SAMPLES; i++){
+            D = DAC_2V5 + i;
             sendDAC(D);
+        }
 
-            delay_us(56);  // espera aprox. 56 microsegundos para que la subida dure 28.75 ms
+        // Caida instantanea a 0V.
+        sendDAC(DAC_0V);
+
+        // Rampa de 0V a 2.5V en 512 muestras (28.75ms aprox)
+        for(i = 0; i < RAMP_SAMPLES; i++){
+            D = DAC_0V + i;
+            sendDAC(D);
         }
     }
 }

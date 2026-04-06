@@ -1,20 +1,15 @@
-#line 1 "C:/Users/Lookos/Desktop/Trabajos Uni/practicas2026HAE/p8d/p8d.c"
-const float LAMBDA = 0.0048875;
+#line 1 "C:/Users/Lookos/Desktop/Trabajos Uni/practicas2026HAE/p8/p8d/p8d.c"
 
-int floatToInt(float value){
- if (value >= 0.0f) {
- return (int)(value + 0.5f);
- } else {
- return (int)(value - 0.5f);
- }
-}
 
-int digitalVoltage(float v, float lambda){
- float D;
- D = v/lambda;
+const unsigned int DAC_0V = 0;
+const unsigned int DAC_2V5 = 512;
+const unsigned int DAC_5V = 1023;
 
- return floatToInt(D);
-}
+
+
+
+const unsigned int HOLD_2V5_SAMPLES = 1248;
+const unsigned int RAMP_SAMPLES = 512;
 
 void sendDAC(int D){
  PORTC.B0 = 0;
@@ -25,9 +20,8 @@ void sendDAC(int D){
 
 void main(){
 
- float voltage = 0.0;
- int D = 0;
- int i = 0;
+ unsigned int D = 0;
+ unsigned int i = 0;
 
 
  TRISC.B0 = 0;
@@ -39,38 +33,23 @@ void main(){
  while(1){
 
 
- voltage = 2.5;
- D = digitalVoltage(voltage, LAMBDA);
-
-
- sendDAC(D);
- delay_ms(70);
-#line 53 "C:/Users/Lookos/Desktop/Trabajos Uni/practicas2026HAE/p8d/p8d.c"
- i = 0;
- for(i = 0; i <= 512; i++){
- voltage = 2.5 + (2.5 * i) / 512.0;
- D = digitalVoltage(voltage, LAMBDA);
-
- sendDAC(D);
-
- delay_us(56);
+ for(i = 0; i < HOLD_2V5_SAMPLES; i++){
+ sendDAC(DAC_2V5);
  }
 
 
- voltage = 0.0;
- D = digitalVoltage(voltage, LAMBDA);
-
+ for(i = 0; i < RAMP_SAMPLES; i++){
+ D = DAC_2V5 + i;
  sendDAC(D);
+ }
 
 
- i = 0;
- for(i = 0; i <= 512; i++){
- voltage = (2.5 * i) / 512.0;
- D = digitalVoltage(voltage, LAMBDA);
+ sendDAC(DAC_0V);
 
+
+ for(i = 0; i < RAMP_SAMPLES; i++){
+ D = DAC_0V + i;
  sendDAC(D);
-
- delay_us(56);
  }
  }
 }

@@ -192,6 +192,9 @@ d_a_bit
 d_bit
 d_not_a
 d_not_a_bit
+dac_0v
+dac_2v5
+dac_5v
 data_address
 data_address_bit
 dc
@@ -220,7 +223,6 @@ delay_5ms
 delay_80us
 delay_8ms
 delay_cyc
-digitalvoltage
 div_16x16_s
 div_16x16_s_l
 div_16x16_u
@@ -254,7 +256,6 @@ fast
 ferr
 ferr_bit
 fixsign32
-floattoint
 free
 free_bit
 fsr0
@@ -286,6 +287,7 @@ go_done
 go_done_bit
 go_not_done
 go_not_done_bit
+hold_2v5_samples
 i2c_dat
 i2c_dat_bit
 ibf_trise_bit
@@ -350,7 +352,6 @@ ipr1
 ipr2
 irvst
 irvst_bit
-lambda
 lata
 lata0
 lata0_bit
@@ -629,6 +630,7 @@ ra5
 ra5_bit
 ra6
 ra6_bit
+ramp_samples
 rb0
 rb0_bit
 rb1
