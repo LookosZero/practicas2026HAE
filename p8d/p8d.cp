@@ -16,6 +16,13 @@ int digitalVoltage(float v, float lambda){
  return floatToInt(D);
 }
 
+void sendDAC(int D){
+ PORTC.B0 = 0;
+ SPI1_Write(D >> 6);
+ SPI1_Write(D << 2);
+ PORTC.B0 = 1;
+}
+
 void main(){
 
  float voltage = 0.0;
@@ -36,21 +43,15 @@ void main(){
  D = digitalVoltage(voltage, LAMBDA);
 
 
- PORTC.B0 = 0;
- SPI1_Write(D >> 6);
- SPI1_Write(D << 2);
- PORTC.B0 = 1;
+ sendDAC(D);
  delay_ms(70);
-#line 49 "C:/Users/Lookos/Desktop/Trabajos Uni/practicas2026HAE/p8d/p8d.c"
+#line 53 "C:/Users/Lookos/Desktop/Trabajos Uni/practicas2026HAE/p8d/p8d.c"
  i = 0;
  for(i = 0; i <= 512; i++){
  voltage = 2.5 + (2.5 * i) / 512.0;
  D = digitalVoltage(voltage, LAMBDA);
 
- PORTC.B0 = 0;
- SPI1_Write(D >> 6);
- SPI1_Write(D << 2);
- PORTC.B0 = 1;
+ sendDAC(D);
 
  delay_us(56);
  }
@@ -59,10 +60,7 @@ void main(){
  voltage = 0.0;
  D = digitalVoltage(voltage, LAMBDA);
 
- PORTC.B0 = 0;
- SPI1_Write(D >> 6);
- SPI1_Write(D << 2);
- PORTC.B0 = 1;
+ sendDAC(D);
 
 
  i = 0;
@@ -70,10 +68,7 @@ void main(){
  voltage = (2.5 * i) / 512.0;
  D = digitalVoltage(voltage, LAMBDA);
 
- PORTC.B0 = 0;
- SPI1_Write(D >> 6);
- SPI1_Write(D << 2);
- PORTC.B0 = 1;
+ sendDAC(D);
 
  delay_us(56);
  }

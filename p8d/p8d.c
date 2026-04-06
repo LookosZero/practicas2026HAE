@@ -15,6 +15,13 @@ int digitalVoltage(float v, float lambda){
     return floatToInt(D);
 }
 
+void sendDAC(int D){
+    PORTC.B0 = 0; // SYNC = 0
+    SPI1_Write(D >> 6);
+    SPI1_Write(D << 2);
+    PORTC.B0 = 1; // SYNC = 1
+}
+
 void main(){
 
     float voltage = 0.0;
@@ -35,10 +42,7 @@ void main(){
         D = digitalVoltage(voltage, LAMBDA);
 
         // Mostramos el voltaje en la salida durante 70ms
-        PORTC.B0 = 0; // SYNC = 0
-        SPI1_Write(D >> 6);
-        SPI1_Write(D << 2);
-        PORTC.B0 = 1; // SYNC = 1
+        sendDAC(D);
         delay_ms(70);
 
         /*
@@ -51,10 +55,7 @@ void main(){
             voltage = 2.5 + (2.5 * i) / 512.0;
             D = digitalVoltage(voltage, LAMBDA);
 
-            PORTC.B0 = 0;
-            SPI1_Write(D >> 6);
-            SPI1_Write(D << 2);
-            PORTC.B0 = 1;
+            sendDAC(D);
 
             delay_us(56);  // espera aprox. 56 microsegundos para que la subida dure 28.75 ms
         }
@@ -63,10 +64,7 @@ void main(){
         voltage = 0.0;
         D = digitalVoltage(voltage, LAMBDA);
 
-        PORTC.B0 = 0; // SYNC = 0
-        SPI1_Write(D >> 6);
-        SPI1_Write(D << 2);
-        PORTC.B0 = 1; // SYNC = 1
+        sendDAC(D);
 
         // Incrementamos el voltaje de forma continua hasta 2.5V durante 28.75ms
         i = 0;
@@ -74,10 +72,7 @@ void main(){
             voltage = (2.5 * i) / 512.0;
             D = digitalVoltage(voltage, LAMBDA);
 
-            PORTC.B0 = 0;
-            SPI1_Write(D >> 6);
-            SPI1_Write(D << 2);
-            PORTC.B0 = 1;
+            sendDAC(D);
 
             delay_us(56);  // espera aprox. 56 microsegundos para que la subida dure 28.75 ms
         }

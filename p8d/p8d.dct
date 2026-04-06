@@ -744,6 +744,7 @@ sdo
 sdo_bit
 sen
 sen_bit
+senddac
 setfdz32
 setfov32
 setfun32

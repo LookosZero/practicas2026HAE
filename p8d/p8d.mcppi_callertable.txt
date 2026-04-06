@@ -25,7 +25,8 @@ main
 						SETFOV32
 						RES032
 					SETFOV32
-	SPI1_Write
+	sendDAC
+		SPI1_Write
 	int2double
 		NRM3232
 			RES032
