@@ -255,7 +255,6 @@ fast
 ferr
 ferr_bit
 fixsign32
-floattoint
 free
 free_bit
 fsr0
@@ -352,7 +351,6 @@ ipr1
 ipr2
 irvst
 irvst_bit
-lambda
 lata
 lata0
 lata0_bit
@@ -746,6 +744,7 @@ sdo
 sdo_bit
 sen
 sen_bit
+senddac
 setfdz32
 setfov32
 setfun32
@@ -1071,6 +1070,5 @@ wren
 wren_bit
 wrerr
 wrerr_bit
-writedac
 z
 z_bit

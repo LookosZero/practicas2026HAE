@@ -1,18 +1,9 @@
 #line 1 "C:/Users/Lookos/Desktop/Trabajos Uni/practicas2026HAE/p8/p8f/p8f.c"
 const int ALFA = 6;
-const float LAMBDA = 0.0048875;
 
 int aux = 0;
 
-int floatToInt(float value){
- if(value >= 0.0f){
- return (int)(value + 0.05f);
- }else{
- return (int)(value - 0.05f);
- }
-}
-
-void writeDAC(int D){
+void sendDAC(int D){
  if(D > 1023){
  D = 1023;
  }
@@ -31,7 +22,7 @@ void interrupt(){
  aux = (ADRESH << 8) + ADRESL;
 
 
- writeDAC(aux * 4);
+ sendDAC(aux * 4);
 
 
  T0CON.TMR0ON = 1;

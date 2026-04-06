@@ -1,17 +1,8 @@
 const int ALFA = 6;
-const float LAMBDA = 0.0048875;
 
 int aux = 0;
 
-int floatToInt(float value){
-    if(value >= 0.0f){
-        return (int)(value + 0.05f);
-    }else{
-        return (int)(value - 0.05f);
-    }
-}
-
-void writeDAC(int D){
+void sendDAC(int D){
     if(D > 1023){
         D = 1023;
     }
@@ -30,7 +21,7 @@ void interrupt(){
         aux = (ADRESH << 8) + ADRESL;
 
         // Escribir medicion en el DAC
-        writeDAC(aux * 4);
+        sendDAC(aux * 4);
 
         // Habilitar el timer
         T0CON.TMR0ON = 1;
