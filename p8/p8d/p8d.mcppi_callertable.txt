@@ -1,0 +1,4 @@
+main
+	SPI1_Init
+	sendDAC
+		SPI1_Write

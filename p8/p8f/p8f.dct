@@ -65,6 +65,7 @@ adon_bit
 adres
 adresh
 adresl
+alfa
 an0
 an0_bit
 an1
@@ -81,6 +82,7 @@ an6
 an6_bit
 an7
 an7_bit
+aux
 b0
 b1
 b2
@@ -220,7 +222,6 @@ delay_5ms
 delay_80us
 delay_8ms
 delay_cyc
-digitalvoltage
 div_16x16_s
 div_16x16_s_l
 div_16x16_u
@@ -254,7 +255,6 @@ fast
 ferr
 ferr_bit
 fixsign32
-floattoint
 free
 free_bit
 fsr0
@@ -344,13 +344,13 @@ intedg1
 intedg1_bit
 intedg2
 intedg2_bit
+interrupt
 ipen
 ipen_bit
 ipr1
 ipr2
 irvst
 irvst_bit
-lambda
 lata
 lata0
 lata0_bit
